@@ -10,7 +10,7 @@ import loguru
 ddg = DDGS()
 
 OPERATORS={
-    "ddg.image": ddg.image,
+    "ddg.images": ddg.images,
     "ddg.chat": ddg.chat,
 }
 
