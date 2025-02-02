@@ -19,8 +19,8 @@ class TaskConfig:
     operator: str
     kwargs: dict
 
-def main(config: TaskConfig):
-    config = TaskConfig(**json.loads(config))
+def main(config: dict):
+    config = TaskConfig(**config)
     loguru.info("hello gh-tasks")
     loguru.info(config)
     op = OPERATORS[config.operator]
