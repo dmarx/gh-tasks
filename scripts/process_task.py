@@ -2,12 +2,12 @@
 from dataclasses import dataclass
 import json
 
-from duckduckgo_search import DDG
+from duckduckgo_search import DDGS
 import fire
 import loguru
 # TODO: import interfaces for compatibility
 
-ddg = DDG()
+ddg = DDGS()
 
 OPERATORS={
     "ddg.image": ddg.image,
