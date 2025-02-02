@@ -18,7 +18,7 @@ ddg = DDGS()
 
 def image_search(**kwargs):
     results = ddg.images(**kwargs)
-    outstr="  \n".join([f"[{r['title']}](r['image'])" for r in results])
+    outstr="  \n".join([f"![{r['title']}]({r['image']})" for r in results])
     return outstr
 
 OPERATORS={
