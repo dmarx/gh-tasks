@@ -23,10 +23,10 @@ jobs:
       - name: Process Search Term
         run: |
           # 1. Get search term and config from gh-store
-          python -m gh_store get-object "$ISSUE_NUMBER" > config.json
+          #python -m gh_store get-object "$ISSUE_NUMBER" > config.json
           
           # 2. Download images if more needed
-          python scripts/process_task.py --config config.json
+          python scripts/process_task.py --config "${{ github.event.issue.body }}"
           
           # # 3. Package into archive
           # tar czf "term-$(date +%Y%m%d).tar.gz" images/
