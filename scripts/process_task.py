@@ -24,7 +24,7 @@ def main(config: TaskConfig):
     loguru.info("hello gh-tasks")
     loguru.info(config)
     op = OPERATORS[config.operator]
-    result = op(**kwargs)
+    result = op(**config.kwargs)
     logger.info(result)
     return result
 
