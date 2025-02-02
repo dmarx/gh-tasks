@@ -17,7 +17,7 @@ from loguru import logger
 ddg = DDGS()
 
 def image_search(**kwargs):
-    results = ddg.images
+    results = ddg.images(**kwargs)
     outstr="  \n".join([f"[{r.title}](r.image)" for r in results])
     return outstr
 
