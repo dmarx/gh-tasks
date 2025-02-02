@@ -4,7 +4,7 @@ import json
 
 from duckduckgo_search import DDGS
 import fire
-import loguru
+from loguru import logger
 # TODO: import interfaces for compatibility
 
 ddg = DDGS()
@@ -21,8 +21,8 @@ class TaskConfig:
 
 def main(config: dict):
     config = TaskConfig(**config)
-    loguru.info("hello gh-tasks")
-    loguru.info(config)
+    logger.info("hello gh-tasks")
+    logger.info(config)
     op = OPERATORS[config.operator]
     result = op(**config.kwargs)
     logger.info(result)
