@@ -1,0 +1,43 @@
+name: Image Collection
+
+on:
+  issues:
+    types: [opened, reopened]  # Trigger on new terms or retries
+
+jobs:
+  process-search:
+    if: contains(github.event.issue.labels.*.name, 'stored-object')
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+          
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install gh-store
+          
+      - name: Process Search Term
+        run: |
+          # 1. Get search term and config from gh-store
+          python -m gh_store get-object "$ISSUE_NUMBER" > config.json
+          
+          # 2. Download images if more needed
+          python scripts/process_task.py --config config.json
+          
+          # # 3. Package into archive
+          # tar czf "term-$(date +%Y%m%d).tar.gz" images/
+          
+          # # 4. Upload to gh-stash
+          # python -m gh_stash upload \
+          #   --filepath "term-$(date +%Y%m%d).tar.gz" \
+          #   --tag "search-${TERM_ID}"
+            
+          # 5. Update gh-store object with new batch info
+          python -m gh_store update-object "$ISSUE_NUMBER" batch.json
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          ISSUE_NUMBER: ${{ github.event.issue.number }}
